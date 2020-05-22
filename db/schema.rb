@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_144913) do
+ActiveRecord::Schema.define(version: 2020_05_21_150817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "codes", force: :cascade do |t|
+    t.string "title"
+    t.string "author"
+    t.string "permalink", null: false
+    t.text "code", null: false
+    t.bigint "syntax_id", null: false
+    t.datetime "expired_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["permalink"], name: "index_codes_on_permalink", unique: true
+    t.index ["syntax_id"], name: "index_codes_on_syntax_id"
+  end
 
   create_table "syntaxes", force: :cascade do |t|
     t.string "name", null: false
@@ -22,4 +35,5 @@ ActiveRecord::Schema.define(version: 2020_05_21_144913) do
     t.index ["name"], name: "index_syntaxes_on_name", unique: true
   end
 
+  add_foreign_key "codes", "syntaxes"
 end

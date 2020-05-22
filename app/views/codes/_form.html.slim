@@ -1,0 +1,24 @@
+  = form_for @code do |f|
+    - if @code.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(@code.errors.count, "error")} prohibited this code from being saved:"
+        ul
+          - @code.errors.full_messages.each do |message|
+            li = message
+    .field: .form-group
+      = f.label :title
+      = f.text_field :title
+    .field
+      = f.label :author
+      = f.text_field :author
+    .field
+      = f.label :code
+      = f.text_area :code, cols: 80, rows: 20
+    .field
+      = f.label :syntax_id
+      = f.collection_select :syntax_id, Syntax.all, :id, :name, prompt: true
+    .field
+      = f.label :expires
+      = f.select :expires, @code.duration_data.keys, prompt: true
+
+    .actions = f.submit

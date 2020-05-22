@@ -1,0 +1,20 @@
+p#notice = notice
+
+p
+  strong Permalink:
+  = link_to 'link', code_path(@code)
+p
+  strong Title:
+  = @code.title
+p
+  strong Code:
+  pre = @code.code
+p
+  strong Author:
+  = @code.author
+p
+  strong Syntax:
+  = @code.syntax
+p
+  strong Expired at:
+  = @code.expired_at
