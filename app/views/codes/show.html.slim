@@ -1,20 +1,44 @@
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+
+<link rel="stylesheet" href="/path/to/styles/default.css">
+<script src="/path/to/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
 p#notice = notice
 
 p
-  strong Permalink:
-  = link_to 'link', code_path(@code)
-p
-  strong Title:
-  = @code.title
-p
-  strong Code:
-  pre = @code.code
-p
-  strong Author:
-  = @code.author
-p
-  strong Syntax:
+  h4
+    = @code.title
+.row
+  .col-auto
+    h4
+      - if @code.author.empty?
+        span.badge.badge-success
+          | Guest
+      - else
+        span.badge.badge-success
+          = @code.author
+
+      | &nbsp
+      = link_to '+', new_code_path, class: "badge badge-success"
+
+  .col-auto
+    h4
+      span class=expired_at
+        = @code.expired_at.to_formatted_s(:short)
+
+  .col-auto
+    h4
+      = link_to 'Link', code_path(@code)
+
+hr
+
+span.badge.badge-primary
   = @code.syntax
+
+pre
+  code
+    = @code.code
+
 p
-  strong Expired at:
-  = @code.expired_at

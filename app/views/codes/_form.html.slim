@@ -19,6 +19,6 @@
       = f.collection_select :syntax_id, Syntax.all, :id, :name, prompt: true
     .field
       = f.label :expires
-      = f.select :expires, @code.duration_data.keys, prompt: true
+      = f.select :expires, @code.duration_data.keys
 
     .actions = f.submit

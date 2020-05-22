@@ -16,6 +16,7 @@ class Code < ApplicationRecord
 
   def duration_data
     {
+      '1min' => 1.minute,
       '1day' => 1.day,
       '1week' => 1.week,
       '1month' => 1.month,

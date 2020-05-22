@@ -35,7 +35,7 @@ class CodesController < ApplicationController
   end
 
   def code_addition
-    @code.expired_at = DateTime.now + 1.day
+    @code.expired_at = DateTime.now + @code.duration_data[code_params[:expires]]
     @code.permalink = Digest::SHA256.hexdigest("#{@code.code}#{SecureRandom.hex(50)}").to_i(16).to_s(36)
   end
 end
