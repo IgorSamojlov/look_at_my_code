@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.0.beta2'
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
+  gem 'coderay', '~> 1.1', '>= 1.1.2'
 end
 
 group :development do

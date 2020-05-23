@@ -1,16 +1,3 @@
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
-
-javascript:
-  const hljsCallback = (event) => {
-    document.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightBlock(block);
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', hljsCallback);
-  document.addEventListener('turbolinks:load', hljsCallback);
-
 p#notice = notice
 
 p
@@ -40,4 +27,4 @@ span.badge.badge-primary
 
 pre
   code
-    = @code.code
+    = format_code @code.code, :ruby

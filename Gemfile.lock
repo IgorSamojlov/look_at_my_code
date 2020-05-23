@@ -245,6 +245,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
+  coderay (~> 1.1, >= 1.1.2)
   factory_bot_rails
   jbuilder (~> 2.7)
   listen (~> 3.2)

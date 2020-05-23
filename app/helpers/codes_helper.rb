@@ -9,4 +9,8 @@ module CodesHelper
       'badge badge-success'
     end
   end
+
+  def format_code(code, syntax)
+    CodeRay.scan(code, syntax).div(line_numbers: :table, css: :style).html_safe
+  end
 end
