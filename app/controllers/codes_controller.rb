@@ -11,6 +11,7 @@ class CodesController < ApplicationController
 
   def create
     @code = Code.new(code_params)
+    set_expires
 
     respond_to do |format|
       if @code.save
@@ -24,6 +25,10 @@ class CodesController < ApplicationController
   end
 
   private
+
+  def set_expires
+    @code.expired_at = DateTime.now + Code::DURATION[code_params[:expires]]
+  end
 
   def set_code
     @code = Code.where('expired_at > ?', DateTime.now).find_by!(permalink: params[:id])
