@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_150817) do
 
   create_table "syntaxes", force: :cascade do |t|
     t.string "name", null: false
+    t.string "lang"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_syntaxes_on_name", unique: true
