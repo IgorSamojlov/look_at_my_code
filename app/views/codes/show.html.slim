@@ -1,9 +1,15 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
 
-<link rel="stylesheet" href="/path/to/styles/default.css">
-<script src="/path/to/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+javascript:
+  const hljsCallback = (event) => {
+    document.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', hljsCallback);
+  document.addEventListener('turbolinks:load', hljsCallback);
 
 p#notice = notice
 
@@ -12,15 +18,10 @@ p
     = @code.title
 .row
   .col-auto
-    h4
-      - if @code.author.empty?
-        span.badge.badge-success
-          | Guest
-      - else
-        span.badge.badge-success
-          = @code.author
 
-      | &nbsp
+    h4
+      span.badge.badge-success = @code.author.presence || 'Guest'
+      | &nbsp;
       = link_to '+', new_code_path, class: "badge badge-success"
 
   .col-auto
@@ -40,5 +41,3 @@ span.badge.badge-primary
 pre
   code
     = @code.code
-
-p

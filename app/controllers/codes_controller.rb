@@ -11,7 +11,6 @@ class CodesController < ApplicationController
 
   def create
     @code = Code.new(code_params)
-    code_addition
 
     respond_to do |format|
       if @code.save
@@ -32,10 +31,5 @@ class CodesController < ApplicationController
 
   def code_params
     params.require(:code).permit(:title, :author, :code, :syntax_id, :expires)
-  end
-
-  def code_addition
-    @code.expired_at = DateTime.now + @code.duration_data[code_params[:expires]]
-    @code.permalink = Digest::SHA256.hexdigest("#{@code.code}#{SecureRandom.hex(50)}").to_i(16).to_s(36)
   end
 end
