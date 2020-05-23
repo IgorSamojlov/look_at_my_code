@@ -1,11 +1,14 @@
-p#notice = notice
+- if notice
+  .alert.alert-warning.alert-dismissible.fade.show role="alert"
+    strong = notice
+    button.close type="button" data-dismiss="alert" aria-label="Close"
+      span aria-hidden="true" &times;
 
 p
   h4
     = @code.title
 .row
   .col-auto
-
     h4
       span.badge.badge-success = @code.author.presence || 'Guest'
       | &nbsp;
@@ -19,7 +22,6 @@ p
   .col-auto
     h4
       = link_to 'Link', code_path(@code)
-
 hr
 
 span.badge.badge-primary
@@ -27,4 +29,4 @@ span.badge.badge-primary
 
 pre
   code
-    = format_code @code.code, :ruby
+    = format_code @code.code, @code.syntax.lang

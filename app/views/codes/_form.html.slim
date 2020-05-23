@@ -8,26 +8,30 @@
 
           - @code.errors.full_messages.each do |message|
             .alert.alert-danger.alert-sm = message
-    .col-4
-      .field
-        .form-group
-          = f.label :title
-          = f.text_field :title, class: "form-control"
-      .field
-        .form-group
-          = f.label :author
-          = f.text_field :author, class: "form-control"
-      .field
-        .form-group
-          = f.label :code
-          = f.text_area :code, cols: 60, rows: 15
-      .field
-        .form-group
-          = f.label :syntax_id
-          = f.collection_select :syntax_id, Syntax.all, :id, :name, {prompt: true}, class: "form-control"
-      .field
-        .form-group
-          = f.label :expires
-          = f.select :expires, Code::DURATION.keys, {}, class: "form-control"
+    .row
+      .col-4
+        .field
+          .form-group
+            = f.label :title
+            = f.text_field :title, class: "form-control form-control-sm"
+        .field
+          .form-group
+            = f.label :author
+            = f.text_field :author, class: "form-control form-control-sm"
 
-      = f.button 'Create link', class: "btn btn-dark btn-sm"
+      .col-4
+        .field
+          .form-group
+            = f.label :syntax_id
+            = f.collection_select :syntax_id, Syntax.all, :id, :name, {prompt: true}, class: "form-control form-control-sm"
+        .field
+          .form-group
+            = f.label :expires
+            = f.select :expires, Code::DURATION.keys, {}, class: "form-control form-control-sm"
+
+    .field
+      .form-group
+        = f.label :code
+        = f.text_area :code, cols: 60, rows: 15, class: "form-control"
+
+    = f.button 'Create link', class: "btn btn-dark btn-sm"
