@@ -10,7 +10,7 @@ module CodesHelper
     end
   end
 
-  def format_code(code, syntax)
-    CodeRay.scan(code, syntax).div(line_numbers: :table, css: :style).html_safe
+  def format_code(code, lang)
+    CodeRay.scan(code, lang).div(line_numbers: :table, css: :style).html_safe
   end
 end
