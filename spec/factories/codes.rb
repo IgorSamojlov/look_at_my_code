@@ -14,9 +14,9 @@ FactoryBot.define do
       "perm_#{SecureRandom.hex(50+n)}"
     end
 
-    code { "Some_code" }
+    code { "Some code" }
     syntax
-    expired_at { "2020-05-21 18:08:17" }
-    expires { DateTime.now + 1.day }
+    expired_at { Time.now + 1.day }
+    expires { '1.week' }
   end
 end
