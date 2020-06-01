@@ -10,7 +10,7 @@ module CodesHelper
     end
   end
 
-  def format_code(code, lang)
-    CodeRay.scan(code, lang).div(line_numbers: :table, css: :style).html_safe
+  def get_format_str(size)
+    "%#{size.to_s.size}d"
   end
 end

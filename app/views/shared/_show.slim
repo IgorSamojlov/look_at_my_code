@@ -1,0 +1,50 @@
+- if notice
+  .alert.alert-warning.alert-dismissible.fade.show role="alert"
+    strong = notice
+    button.close type="button" data-dismiss="alert" aria-label="Close"
+      span aria-hidden="true" &times;
+p
+  h4
+    = @code.title
+.row
+  .col-auto
+    h4
+      span.badge.badge-success = @code.author.presence || 'Guest'
+      | &nbsp;
+      = link_to '+', new_code_path, class: "badge badge-success"
+
+  .col-auto
+    h4
+      span class=expired_at
+        = @code.expired_at.to_formatted_s(:short)
+
+  .col-auto
+    h4
+      = link_to 'Link', code_path(@code)
+hr
+
+span.badge.badge-primary
+  = @code.syntax
+
+- lines = @code.formatted_code.lines
+- comments = @code.get_comments
+
+.CodeRay: pre
+  - lines.each.with_index do |line, index|
+    - index += 1
+    = link_to format(get_format_str(lines.size), (index)), new_code_line_comment_path(@code, index)
+    | &nbsp;
+    = line.html_safe
+    - if comments[index]
+      - comments[index].each do |comment|
+        .col-9
+          .row-7
+            .card
+              .card-body
+                span.badge.badge-secondary = comment[:date]
+                | &nbsp
+                span.badge.badge-info = comment[:author]
+                p = comment[:comment]
+
+    - if @comment && (index == params[:line_id].to_i)
+      = render 'shared/form'

@@ -31,7 +31,7 @@ class CodesController < ApplicationController
   end
 
   def set_code
-    @code = Code.where('expired_at > ?', DateTime.now).find_by!(permalink: params[:id])
+    @code = Code.where('expired_at > ?', DateTime.now).find_by_permalink!(params[:id])
   end
 
   def code_params

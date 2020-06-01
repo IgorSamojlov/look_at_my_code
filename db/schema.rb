@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_150817) do
+ActiveRecord::Schema.define(version: 2020_05_31_110043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,8 +24,19 @@ ActiveRecord::Schema.define(version: 2020_05_21_150817) do
     t.datetime "expired_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "formatted_code", null: false
     t.index ["permalink"], name: "index_codes_on_permalink", unique: true
     t.index ["syntax_id"], name: "index_codes_on_syntax_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "comment", null: false
+    t.integer "line", null: false
+    t.string "author"
+    t.bigint "code_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["code_id"], name: "index_comments_on_code_id"
   end
 
   create_table "syntaxes", force: :cascade do |t|
@@ -37,4 +48,5 @@ ActiveRecord::Schema.define(version: 2020_05_21_150817) do
   end
 
   add_foreign_key "codes", "syntaxes"
+  add_foreign_key "comments", "codes"
 end
