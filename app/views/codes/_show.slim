@@ -1,0 +1,29 @@
+- if notice
+  .alert.alert-warning.alert-dismissible.fade.show role="alert"
+    strong = notice
+    button.close type="button" data-dismiss="alert" aria-label="Close"
+      span aria-hidden="true" &times;
+h4
+  = @code.title
+
+.row
+  .col-auto
+    h4
+      span.badge.badge-success = @code.author.presence || 'Guest'
+      | &nbsp;
+      = link_to '+', new_code_path, class: "badge badge-success"
+
+  .col-auto
+    h4
+      span class=expired_at
+        = @code.expired_at.to_formatted_s(:short)
+
+  .col-auto
+    h4
+      = link_to 'Link', code_path(@code)
+hr
+
+span.badge.badge-primary
+  = @code.syntax
+
+= render 'codes/formatted_code'

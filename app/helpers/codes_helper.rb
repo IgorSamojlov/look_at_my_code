@@ -10,7 +10,7 @@ module CodesHelper
     end
   end
 
-  def get_format_str(size)
-    "%#{size.to_s.size}d"
+  def get_forrmat(size, value)
+    format("%#{size.to_s.size}d", value)
   end
 end

@@ -1,22 +1,15 @@
 = form_for @comment, url: code_line_comments_path do |f|
-  - if @comment.errors.any?
-      .alert.alert-success role="alert"
-        button type="button" class="close" data-dismiss="alert" aria-label="Close"
-          span aria-hidden="true" &times;
-        h5 = "#{pluralize(@comment.errors.count, "error")} prohibited this comment_line from being saved:"
-
-        - @comment.errors.full_messages.each do |message|
-          .alert.alert-danger.alert-sm = message
   .container
     .col
       .field
         .form-group.row
-          = f.label :author, class: "col-sm-1 col-form-label"
-          .col-sm-4
-            = f.text_field :author, class: "form-control form-control-sm"
-      .field
-        .form-group.row
           .col-sm-5
             = f.text_area :comment, class: "form-control"
+      .field
+        .form-group.row
+          = f.label :author, class: "col-sm-1 col-form-label"
+          .col-sm-2
+            = f.text_field :author, class: "form-control form-control-sm"
+          .col-sm-2
+            = f.button 'Add comment', class: "btn btn-dark btn-sm"
 
-      = f.button 'Add comment', class: "btn btn-dark btn-sm"

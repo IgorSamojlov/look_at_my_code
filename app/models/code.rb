@@ -10,7 +10,8 @@ class Code < ApplicationRecord
 
   has_many :comments, inverse_of: :code
 
-  before_validation :set_data, :set_formatted_code, on: :create
+  before_validation :set_data, on: :create
+  before_save :set_formatted_code
 
   attribute :expires, :string
 
@@ -30,26 +31,14 @@ class Code < ApplicationRecord
   end
 
   def get_comments
-    result = {}
-    comments.each do |comment|
-      if result[comment.line]
-        result[comment.line].push comment_to_hash comment
-      else
-        result[comment.line] = [comment_to_hash(comment)]
-      end
-    end
-    result
+    comments.order(:created_at).group_by(&:line)
+  end
+
+  def self.active(permalink)
+    self.where('expired_at > NOW()').find_by_permalink!(permalink)
   end
 
   private
-
-  def comment_to_hash(comment)
-    {
-      comment: comment.comment,
-      date: comment.created_at,
-      author: comment.author,
-    }
-  end
 
   def set_data
     self.permalink = Digest::SHA256.hexdigest("#{code}#{SecureRandom.hex(50)}").to_i(16).to_s(36)

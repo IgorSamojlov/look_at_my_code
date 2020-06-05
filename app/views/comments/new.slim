@@ -1,1 +1,12 @@
-== render 'form'
+.form-group
+  = form_for @code do |f|
+    - if @comment.errors.any?
+        .alert.alert-danger role="alert"
+          button type="button" class="close" data-dismiss="alert" aria-label="Close"
+            span aria-hidden="true" &times;
+          h5 = "#{pluralize(@comment.errors.count, "error")} prohibited this comment from being saved:"
+          ul
+            - @comment.errors.full_messages.each do |message|
+              li = message
+
+= render 'codes/show'

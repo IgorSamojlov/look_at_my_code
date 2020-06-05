@@ -3,7 +3,6 @@ class CommentsController < ApplicationController
 
   def new
     @comment = @code.comments.new
-    render 'shared/_show'
   end
 
   def create
@@ -12,10 +11,10 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment.code }
+        format.html { redirect_to code_path @code, anchor: "l#{params[:line_id]}" }
         format.json { render :show, status: :created, location: @comment.code }
       else
-        format.html { redirect_to @comment.code }
+        format.html { render :new }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -24,7 +23,7 @@ class CommentsController < ApplicationController
   private
 
   def set_code
-    @code = Code.where('expired_at > ?', DateTime.now).find_by_permalink!(params[:code_id])
+    @code = Code.active params[:code_id]
   end
 
   def comments_params

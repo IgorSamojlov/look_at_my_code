@@ -1,0 +1,28 @@
+- lines = @code.formatted_code.lines
+- comments = @code.get_comments
+
+.CodeRay
+  - lines.each.with_index do |line, i|
+    - index = i + 1
+    pre
+      = link_to get_forrmat(lines.size, index),
+        new_code_line_comment_path(@code, index, anchor: "l#{index}"), id: "l#{index}"
+
+      | &nbsp;
+      = line.html_safe
+      - if comments[index]
+        - comments[index].each do |comment|
+          - next if comment.new_record?
+          .col-9
+            .row-7
+              .card
+                .card-body
+                  span.badge.badge-secondary = l comment[:created_at], format: :short
+                  | &nbsp
+                  span.badge.badge-info = comment[:author]
+                  p = comment[:comment]
+
+    - if @comment && (index == params[:line_id].to_i)
+      hr
+
+      = render 'comments/form'
