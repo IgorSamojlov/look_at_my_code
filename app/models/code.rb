@@ -22,10 +22,6 @@ class Code < ApplicationRecord
     validates :expires
   end
 
-  def set_formatted_code
-    self.formatted_code = CodeRay.scan(code, syntax.lang).html(css: :class)
-  end
-
   def to_param
     permalink
   end
@@ -39,6 +35,10 @@ class Code < ApplicationRecord
   end
 
   private
+
+  def set_formatted_code
+    self.formatted_code = CodeRay.scan(code, syntax.lang).html(css: :class)
+  end
 
   def set_data
     self.permalink = Digest::SHA256.hexdigest("#{code}#{SecureRandom.hex(50)}").to_i(16).to_s(36)
