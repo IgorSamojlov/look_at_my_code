@@ -16,7 +16,7 @@ h4
   .col-auto
     h4
       span class=expired_at
-        = @code.expired_at.to_formatted_s(:short)
+        = distance_of_time_in_words @code.expired_at, Time.now
 
   .col-auto
     h4
